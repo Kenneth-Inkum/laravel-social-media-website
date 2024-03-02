@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Post;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -13,6 +14,11 @@ return new class extends Migration
     {
         Schema::create('post_attachments', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Post::class);
+            $table->string('name');
+            $table->string('path', 1024);
+            $table->string('mime_type', 30);
+            $table->foreignId('created_by')->constrained('users');
             $table->timestamps();
         });
     }
